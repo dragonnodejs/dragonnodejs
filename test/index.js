@@ -106,15 +106,4 @@ describe('dragonnodejs/dragonnodejs', function () {
         dragonnodejs(environmentconfig, services);
         assert.equal(services.moduleconfig.example, 'example', 'module should have "example" from configuration');
     });
-
-    it('should use "." if directory is not given in the configuration', function () {
-        var environmentconfig = {
-            modules: {
-                directory: { '/test/modules/defineservices': {} }
-            }
-        };
-        var services = {};
-        dragonnodejs(environmentconfig, services);
-        assert.equal(services.example, 'example', 'module should defined "example" as service "example"');
-    });
 });

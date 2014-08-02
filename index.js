@@ -21,10 +21,9 @@ module.exports = function (environmentconfig, services) {
         require(npm + name)(moduleconfig, services);
     }
 
-    var directory = environmentconfig.directory || '.';
     for (var name in environmentconfig.modules.directory) {
         var moduleconfig = environmentconfig.modules.directory[name];
 
-        require(directory + name)(moduleconfig, services);
+        require(environmentconfig.directory + name)(moduleconfig, services);
     }
 };
