@@ -1,7 +1,7 @@
 {
     "name": "dragonnodejs",
     "description": "Framework to develop modular and testable Node.js applications",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "author": "Christoph Herrmann <developer@dragonprojects.de>",
     "keywords": [
         "dragonnodejs",

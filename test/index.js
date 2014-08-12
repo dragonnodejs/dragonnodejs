@@ -5,33 +5,68 @@ var assert = require('assert');
 describe('dragonnodejs/dragonnodejs', function () {
 
     var dragonnodejs = require('../index.js');
-    var npm = './test/modules/';
+    var npm = {
+        libraries: './test/libraries/',
+        modules: './test/modules/'
+    };
     var directory = './test/modules/';
 
-    it('should have the library in the service container after loading library', function () {
+    it('should have the nodejs library in the service container', function () {
         var environmentconfig = {
-            libraries: { assert: 'assert' },
+            libraries: {
+                nodejs: { events: 'events' }
+            },
             modules: {}
         };
         var services = {};
         dragonnodejs(environmentconfig, services);
-        assert.equal(typeof services.assert, 'function', 'services.assert should be a function');
+        assert.equal(typeof services.events, 'object', 'services.events should be a object');
     });
 
-    it('should allow alias for a library', function () {
+    it('should allow alias for a nodejs library', function () {
         var environmentconfig = {
-            libraries: { alias: 'assert' },
+            libraries: {
+                nodejs: { alias: 'events' }
+            },
             modules: {}
         };
         var services = {};
         dragonnodejs(environmentconfig, services);
-        assert.equal(typeof services.assert, 'undefined', 'services.assert should be undefined');
-        assert.equal(typeof services.alias, 'function', 'services.alias should be a function');
+        assert.equal(typeof services.events, 'undefined', 'services.events should be undefined');
+        assert.equal(typeof services.alias, 'object', 'services.alias should be a object');
+    });
+
+    it('should have the npm library in the service container', function () {
+        var environmentconfig = {
+            npm: npm.libraries,
+            libraries: {
+                npm: { definelibrary: 'definelibrary' }
+            },
+            modules: {}
+        };
+        var services = {};
+        dragonnodejs(environmentconfig, services);
+        assert.equal(services.definelibrary, 'example', 'services.definelibrary should be "example"');
+    });
+
+    it('should allow alias for a npm library', function () {
+        var environmentconfig = {
+            npm: npm.libraries,
+            libraries: {
+                npm: { alias: 'definelibrary' }
+            },
+            modules: {}
+        };
+        var services = {};
+        dragonnodejs(environmentconfig, services);
+        assert.equal(typeof services.definelibrary, 'undefined', 'services.definelibrary should be undefined');
+        assert.equal(services.alias, 'example', 'services.definelibrary should be "example"');
     });
 
     it('should allow a npm module to define services', function () {
         var environmentconfig = {
-            npm: npm,
+            npm: npm.modules,
+            libraries: {},
             modules: {
                 npm: { defineservices: {} }
             }
@@ -43,7 +78,8 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a npm module the defined services', function () {
         var environmentconfig = {
-            npm: npm,
+            npm: npm.modules,
+            libraries: {},
             modules: {
                 npm: {
                     defineservices: {},
@@ -58,7 +94,8 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a npm module the configuration', function () {
         var environmentconfig = {
-            npm: npm,
+            npm: npm.modules,
+            libraries: {},
             modules: {
                 npm: { usemoduleconfig: { example: 'example' } }
             }
@@ -70,6 +107,7 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should allow a directory module to define services', function () {
         var environmentconfig = {
+            libraries: {},
             directory: directory,
             modules: {
                 directory: { defineservices: {} }
@@ -82,6 +120,7 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a directory module the defined services', function () {
         var environmentconfig = {
+            libraries: {},
             directory: directory,
             modules: {
                 directory: {
@@ -97,6 +136,7 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a directory module the configuration', function () {
         var environmentconfig = {
+            libraries: {},
             directory: directory,
             modules: {
                 directory: { usemoduleconfig: { example: 'example' } }

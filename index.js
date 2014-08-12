@@ -7,10 +7,17 @@
  */
 module.exports = function (environmentconfig, services) {
     services = services || {};
+
+    for (var alias in environmentconfig.libraries.nodejs) {
+        var name = environmentconfig.libraries.nodejs[alias];
+
+        services[alias] = require(name);
+    }
+
     var npm = environmentconfig.npm || '';
 
-    for (var alias in environmentconfig.libraries) {
-        var name = environmentconfig.libraries[alias];
+    for (var alias in environmentconfig.libraries.npm) {
+        var name = environmentconfig.libraries.npm[alias];
 
         services[alias] = require(npm + name);
     }
