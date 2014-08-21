@@ -11,6 +11,16 @@ describe('dragonnodejs/dragonnodejs', function () {
     };
     var directory = './test/modules/';
 
+    it('should have dragonnodejs as service', function () {
+        var environmentconfig = {
+            libraries: {},
+            modules: {}
+        };
+        var services = {};
+        dragonnodejs(environmentconfig, services);
+        assert.equal(typeof services.dragonnodejs, 'function', 'services.dragonnodejs should be a function');
+    });
+
     it('should have the nodejs library in the service container', function () {
         var environmentconfig = {
             libraries: {

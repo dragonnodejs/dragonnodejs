@@ -5,8 +5,9 @@
  * @param environmentconfig
  * @param services
  */
-module.exports = function (environmentconfig, services) {
+module.exports = function dragonnodejs(environmentconfig, services) {
     services = services || {};
+    services.dragonnodejs = dragonnodejs;
 
     for (var alias in environmentconfig.libraries.nodejs) {
         var name = environmentconfig.libraries.nodejs[alias];
