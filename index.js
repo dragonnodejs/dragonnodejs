@@ -1,10 +1,7 @@
 "use strict";
 
-/**
- * Load the libraries and modules with the configuration
- * @param environmentconfig
- * @param services
- */
+// load the libraries and modules with the configuration
+
 module.exports = function dragonnodejs(environmentconfig, services) {
     services = services || {};
     services.dragonnodejs = dragonnodejs;

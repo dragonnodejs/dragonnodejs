@@ -1,10 +1,7 @@
 "use strict";
 
-/**
- * Testmodule to define services
- * @param moduleconfig
- * @param services
- */
+// testmodule to define services
+
 module.exports = function (moduleconfig, services) {
     services.example = 'example';
 };
