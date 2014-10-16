@@ -10,7 +10,7 @@ Documentation see [dragonnodejs/skeleton](https://github.com/dragonnodejs/skelet
 Minor:
 - Feature: Add "dragonnodejs" function itself to the services. Specially need it for the bundles
 Trivial:
-- Change: Remove unneeded default configuration "." for the "directory" in the environmentconfig
+- Change: Remove unneeded default configuration "." for the "directory" in the config
 
 ### 2.0.0
 Major:
@@ -20,4 +20,4 @@ complete library configuration
 
 ### 1.0.1
 Trivial:
-- Change: Remove unneeded default configuration "." for the "directory" in the environmentconfig
+- Change: Remove unneeded default configuration "." for the "directory" in the config

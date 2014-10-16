@@ -2,6 +2,6 @@
 
 // testmodule to define services
 
-module.exports = function (moduleconfig, services) {
+module.exports = function (config, services) {
     services.example = 'example';
 };
