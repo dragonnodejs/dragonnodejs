@@ -1,7 +1,7 @@
 "use strict";
 
 /*
- * load the libraries and modules with the configuration
+ * Load the libraries and modules with the configuration
  * @example
     var config = {
         libraries: {},

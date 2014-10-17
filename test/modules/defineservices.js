@@ -1,6 +1,6 @@
 "use strict";
 
-// testmodule to define services
+// Testmodule to define services
 
 module.exports = function (config, services) {
     services.example = 'example';

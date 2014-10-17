@@ -1,5 +1,5 @@
 "use strict";
 
-// testlibrary
+// Testlibrary
 
 module.exports = 'example';
