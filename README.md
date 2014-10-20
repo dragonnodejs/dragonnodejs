@@ -2,22 +2,39 @@
     (https://travis-ci.org/dragonnodejs/dragonnodejs)
 
 # DragonNode.js
-Documentation see [dragonnodejs/skeleton](https://github.com/dragonnodejs/skeleton)
+Framework to develop modular and testable Node.js applications
+- Separate configuration and implementation of modules
+- Service container to use services from other modules or define new services in the modules
+- Allow to mock standard libraries and services for testing modules as independent units
+- Group modules to bundles and share them with other developers
 
-## Changelog
+## Installation
+- Fork and/or clone the skeleton repository
+- Execute "npm install"
+- Start the application with "npm start"
 
-### 2.1.0
-Minor:
-- Feature: Add "dragonnodejs" function itself to the services. Specially need it for the bundles
-Trivial:
-- Change: Remove unneeded default configuration "." for the "directory" in the config
+## Define new module
+- Add new file or directory to the module directory with the name of the new module, for example "./modules/example.js":
+```javascript
+/*
+ * Description for the module
+ * @example
+    example: {}
+ */
 
-### 2.0.0
-Major:
-- Feature: Add define libraries included in Node.js. The change need to split the library configuration to "nodejs" and
-"npm". Also need to define the library configuration as empty object if no library is needed instead of not define the
-complete library configuration
-
-### 1.0.1
-Trivial:
-- Change: Remove unneeded default configuration "." for the "directory" in the config
+module.exports = function (config, services) {
+    // Implementation for the module
+};
+```
+- Extend the configuration for the different environments, for example "./configs/development.js":
+```javascript
+module.exports = {
+    modules: {
+        directory: {
+            example: {
+                // Configuration for the module
+            }
+        }
+    }
+};
+```
