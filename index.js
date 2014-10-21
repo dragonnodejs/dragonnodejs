@@ -14,8 +14,7 @@
  */
 
 module.exports = function dragonnodejs(config, services) {
-    services = services || {};
-    services.dragonnodejs = dragonnodejs;
+    services = services || { dragonnodejs: dragonnodejs };
 
     for (var alias in config.libraries.nodejs) {
         services[alias] = require(config.libraries.nodejs[alias]);
@@ -34,4 +33,6 @@ module.exports = function dragonnodejs(config, services) {
     for (var name in config.modules.directory) {
         require(config.directory + name)(config.modules.directory[name], services);
     }
+
+    return services;
 };

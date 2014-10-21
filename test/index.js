@@ -16,8 +16,7 @@ describe('dragonnodejs/dragonnodejs', function () {
             libraries: {},
             modules: {}
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(typeof services.dragonnodejs, 'function', 'services.dragonnodejs should be a function');
     });
 
@@ -28,8 +27,7 @@ describe('dragonnodejs/dragonnodejs', function () {
             },
             modules: {}
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(typeof services.events, 'object', 'services.events should be a object');
     });
 
@@ -40,8 +38,7 @@ describe('dragonnodejs/dragonnodejs', function () {
             },
             modules: {}
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(typeof services.events, 'undefined', 'services.events should be undefined');
         assert.equal(typeof services.alias, 'object', 'services.alias should be a object');
     });
@@ -54,8 +51,7 @@ describe('dragonnodejs/dragonnodejs', function () {
             },
             modules: {}
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(services.definelibrary, 'example', 'services.definelibrary should be "example"');
     });
 
@@ -67,8 +63,7 @@ describe('dragonnodejs/dragonnodejs', function () {
             },
             modules: {}
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(typeof services.definelibrary, 'undefined', 'services.definelibrary should be undefined');
         assert.equal(services.alias, 'example', 'services.definelibrary should be "example"');
     });
@@ -81,8 +76,7 @@ describe('dragonnodejs/dragonnodejs', function () {
                 npm: { defineservices: {} }
             }
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(services.example, 'example', 'module should defined "example" as service "example"');
     });
 
@@ -97,8 +91,7 @@ describe('dragonnodejs/dragonnodejs', function () {
                 }
             }
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(services.services.example, 'example', 'module should defined "example" from services');
     });
 
@@ -110,8 +103,7 @@ describe('dragonnodejs/dragonnodejs', function () {
                 npm: { useconfig: { example: 'example' } }
             }
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(services.config.example, 'example', 'module should have "example" from configuration');
     });
 
@@ -123,8 +115,7 @@ describe('dragonnodejs/dragonnodejs', function () {
                 directory: { defineservices: {} }
             }
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(services.example, 'example', 'module should defined "example" as service "example"');
     });
 
@@ -139,8 +130,7 @@ describe('dragonnodejs/dragonnodejs', function () {
                 }
             }
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(services.services.example, 'example', 'module should defined "example" from services');
     });
 
@@ -152,8 +142,7 @@ describe('dragonnodejs/dragonnodejs', function () {
                 directory: { useconfig: { example: 'example' } }
             }
         };
-        var services = {};
-        dragonnodejs(config, services);
+        var services = dragonnodejs(config);
         assert.equal(services.config.example, 'example', 'module should have "example" from configuration');
     });
 });
