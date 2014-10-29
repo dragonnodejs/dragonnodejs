@@ -9,7 +9,7 @@ Framework to develop modular and testable Node.js applications
 - Group modules to bundles and share them with other developers
 
 ## Installation
-- Fork and/or clone the skeleton repository
+- Fork and/or clone the app-skeleton repository
 - Execute "npm install"
 - Start the application with "npm start"
 
@@ -26,7 +26,7 @@ module.exports = function (config, services) {
     // Implementation for the module
 };
 ```
-- Extend the configuration for the different environments, for example "./configs/development.js":
+- Extend the configuration for the application, for example "app/config.js":
 ```javascript
 module.exports = {
     modules: {

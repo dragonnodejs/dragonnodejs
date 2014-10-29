@@ -4,9 +4,14 @@
  * Load the libraries and modules with the configuration
  * @example
     var config = {
-        libraries: {},
+        npm: '',
+        libraries: {
+            nodejs: {},
+            npm: {}
+        },
         directory: __dirname + '/modules/',
         modules: {
+            npm: {},
             directory: {}
         }
     };
