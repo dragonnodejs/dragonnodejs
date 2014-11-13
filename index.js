@@ -6,7 +6,7 @@ var async = require('async');
  * Load the libraries and modules with the configuration
  * @example
     var config = {
-        npm: '',
+        npm: __dirname + '/node_modules/',
         libraries: {
             nodejs: {},
             npm: {}
@@ -20,40 +20,44 @@ var async = require('async');
     require('dragonnodejs')(config);
  */
 
-module.exports = function dragonnodejs(config, services, callback) {
-    services = services || { dragonnodejs: dragonnodejs };
+module.exports = function (config, services, callback) {
+    services = services || {};
 
-    // Assign Node.js and npm installed libraries with alias names to the services
+    // Load Node.js and NPM installed libraries with the alias names to the library container
 
+    var libraries = {};
     for (var alias in config.libraries.nodejs) {
-        services[alias] = require(config.libraries.nodejs[alias]);
+        libraries[alias] = require(config.libraries.nodejs[alias]);
     }
-    var npm = config.npm || '';
     for (var alias in config.libraries.npm) {
-        services[alias] = require(npm + config.libraries.npm[alias]);
+        libraries[alias] = require(config.npm + config.libraries.npm[alias]);
     }
 
-    // Collect npm installed and project modules with the configurations
+    // Collect NPM installed and directory modules with the configurations
 
     var modules = [];
     for (var name in config.modules.npm) {
-        modules.push({ config: config.modules.npm[name], constructor: require(npm + name) });
+        modules.push({
+            constructor: require(config.npm + name),
+            config: config.modules.npm[name]
+        });
     }
     for (var name in config.modules.directory) {
-        modules.push({ config: config.modules.directory[name], constructor: require(config.directory + name) });
+        modules.push({
+            constructor: require(config.directory + name),
+            config: config.modules.directory[name]
+        });
     }
 
-    // Load the collected modules asynchronous as serie
+    // Load the collected modules asynchron as serie and call the callback if defined
 
     var series = [];
     for (var key in modules) {
         var module = modules[key];
         series.push(function (module) { return function (callback) {
-            var asynchronous = module.constructor(module.config, services, callback);
-            if (!asynchronous) {
-                callback();
-            }
+            var asynchron = module.constructor(module.config, libraries, services, callback);
+            if (!asynchron) { callback(); }
         } }(module));
     }
-    async.series(series, function () { if (callback) { callback(services); } });
+    async.series(series, function () { if (callback) { callback(); } });
 };
