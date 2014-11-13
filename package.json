@@ -1,7 +1,7 @@
 {
     "name": "dragonnodejs",
     "description": "Framework to develop modular and testable Node.js applications",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "author": "Christoph Herrmann <developer@dragonprojects.de>",
     "keywords": [
         "dragonnodejs",
@@ -13,7 +13,9 @@
     "scripts": {
         "test": "mocha -R spec"
     },
-    "dependencies": {},
+    "dependencies": {
+        "async": "*"
+    },
     "devDependencies": {
         "mocha": "*"
     },
