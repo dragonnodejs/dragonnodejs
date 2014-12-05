@@ -38,13 +38,13 @@ module.exports = function (config, services, callback) {
     var modules = [];
     for (var name in config.modules.npm) {
         modules.push({
-            init: require(config.npm + name),
+            invoke: require(config.npm + name),
             config: config.modules.npm[name]
         });
     }
     for (var name in config.modules.directory) {
         modules.push({
-            init: require(config.directory + name),
+            invoke: require(config.directory + name),
             config: config.modules.directory[name]
         });
     }
@@ -55,8 +55,8 @@ module.exports = function (config, services, callback) {
     for (var key in modules) {
         var module = modules[key];
         series.push(function (module) { return function (callback) {
-            var callbackCalled = module.init(module.config, libraries, services, callback);
-            if (!callbackCalled) { callback(); }
+            var async = module.invoke(module.config, libraries, services, callback);
+            if (!async) { callback(); }
         } }(module));
     }
     async.series(series, function () { if (callback) { callback(); } });
