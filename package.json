@@ -4,8 +4,14 @@
     "version": "3.0.1",
     "author": "Christoph Herrmann <developer@dragonprojects.de>",
     "readmeFilename": "README.md",
+    "scripts": {
+        "test": "mocha -R spec"
+    },
     "dependencies": {
         "async": "*"
+    },
+    "devDependencies": {
+        "mocha": "*"
     },
     "repository": {
         "type": "git",
