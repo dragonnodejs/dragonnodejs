@@ -1,3 +1,6 @@
+[![Travis CI](https://travis-ci.org/dragonnodejs/dragonnodejs.svg?branch=master "Travis CI")]
+ (https://travis-ci.org/dragonnodejs/dragonnodejs)
+
 # DragonNode.js
 Framework to develop modular and testable Node.js applications
 - Separate configuration and implementation of modules
