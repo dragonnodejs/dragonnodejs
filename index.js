@@ -53,11 +53,13 @@ module.exports = function (config, services, callback) {
 
     var series = [];
     for (var key in modules) {
-        var module = modules[key];
-        series.push(function (module) { return function (callback) {
-            var async = module.invoke(module.config, libraries, services, callback);
-            if (!async) { callback(); }
-        } }(module));
+        series.push(function (module) {
+            return function (callback) {
+                if (!module.invoke(module.config, libraries, services, callback)) {
+                    callback();
+                }
+            }
+        }(modules[key]));
     }
     async.series(series, function () { if (callback) { callback(); } });
 };
