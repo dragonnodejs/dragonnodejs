@@ -2,7 +2,7 @@
 
 var async = require('async');
 
-/*
+/**
  * Load the libraries and modules with the configuration
  * @example
     var config = {

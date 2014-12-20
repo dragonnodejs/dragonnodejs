@@ -5,19 +5,17 @@ var assert = require('assert');
 describe('dragonnodejs/dragonnodejs', function () {
 
     var dragonnodejs = require('../index.js');
-    var npm = {
-        libraries: __dirname + '/libraries/',
-        modules: __dirname + '/modules/'
-    };
-    var directory = __dirname + '/modules/';
 
     it('should add the "assert" library to the libraries container', function () {
         var config = {
+            npm: '',
             libraries: {
-                nodejs: { assert: 'assert' }
+                nodejs: { assert: 'assert' },
+                npm: {}
             },
-            directory: directory,
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: {
                     uselibrary: { name: 'assert' }
                 }
@@ -31,11 +29,14 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should add the "assert" library with the alias to the libraries container', function () {
         var config = {
+            npm: '',
             libraries: {
-                nodejs: { alias: 'assert' }
+                nodejs: { alias: 'assert' },
+                npm: {}
             },
-            directory: directory,
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: {
                     uselibrary: { name: 'alias' }
                 }
@@ -49,12 +50,14 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should add the npm installed library to the libraries container', function () {
         var config = {
-            npm: npm.libraries,
+            npm: __dirname + '/libraries/',
             libraries: {
+                nodejs: {},
                 npm: { definelibrary: 'definelibrary' }
             },
-            directory: directory,
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: {
                     uselibrary: { name: 'definelibrary' }
                 }
@@ -68,12 +71,14 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should add the npm installed library with the alias to the libraries container', function () {
         var config = {
-            npm: npm.libraries,
+            npm: __dirname + '/libraries/',
             libraries: {
+                nodejs: {},
                 npm: { alias: 'definelibrary' }
             },
-            directory: directory,
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: {
                     uselibrary: { name: 'alias' }
                 }
@@ -87,10 +92,15 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should allow a npm module to define service', function () {
         var config = {
-            npm: npm.modules,
-            libraries: {},
+            npm: __dirname + '/modules/',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: '',
             modules: {
-                npm: { defineservice: {} }
+                npm: { defineservice: {} },
+                directory: {}
             }
         };
         var services = {};
@@ -101,13 +111,18 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a npm module the defined services', function () {
         var config = {
-            npm: npm.modules,
-            libraries: {},
+            npm: __dirname + '/modules/',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: '',
             modules: {
                 npm: {
                     defineservice: {},
                     useservice: {}
-                }
+                },
+                directory: {}
             }
         };
         var services = {};
@@ -118,10 +133,15 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a npm module the configuration', function () {
         var config = {
-            npm: npm.modules,
-            libraries: {},
+            npm: __dirname + '/modules/',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: '',
             modules: {
-                npm: { useconfig: { example: 'example' } }
+                npm: { useconfig: { example: 'example' } },
+                directory: {}
             }
         };
         var services = {};
@@ -132,13 +152,18 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a npm module an asynchron defined services', function () {
         var config = {
-            npm: npm.modules,
-            libraries: {},
+            npm: __dirname + '/modules/',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: '',
             modules: {
                 npm: {
                     defineserviceasync: {},
                     useservice: {}
-                }
+                },
+                directory: {}
             }
         };
         var services = {};
@@ -149,12 +174,17 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should allow to invoke services to npm modules', function () {
         var config = {
-            npm: npm.modules,
-            libraries: {},
+            npm: __dirname + '/modules/',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: '',
             modules: {
                 npm: {
                     useservice: {}
-                }
+                },
+                directory: {}
             }
         };
         var services = { example: 'invoked' };
@@ -165,9 +195,14 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should allow a directory module to define service', function () {
         var config = {
-            libraries: {},
-            directory: directory,
+            npm: '',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: { defineservice: {} }
             }
         };
@@ -179,9 +214,14 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a directory module the defined services', function () {
         var config = {
-            libraries: {},
-            directory: directory,
+            npm: '',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: {
                     defineservice: {},
                     useservice: {}
@@ -196,9 +236,14 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a directory module the configuration', function () {
         var config = {
-            libraries: {},
-            directory: directory,
+            npm: '',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: { useconfig: { example: 'example' } }
             }
         };
@@ -210,9 +255,14 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should give a directory module an asynchron defined services', function () {
         var config = {
-            libraries: {},
-            directory: directory,
+            npm: '',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: {
                     defineserviceasync: {},
                     useservice: {}
@@ -227,9 +277,14 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     it('should allow to invoke services to directory modules', function () {
         var config = {
-            libraries: {},
-            directory: directory,
+            npm: '',
+            libraries: {
+                nodejs: {},
+                npm: {}
+            },
+            directory: __dirname + '/modules/',
             modules: {
+                npm: {},
                 directory: {
                     useservice: {}
                 }
