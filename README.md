@@ -10,6 +10,6 @@ Framework to develop modular and testable Node.js applications
 - Support asynchronous modules and bundles
 
 # Installation
-- Fork or/and clone the [app-skeleton repository](https://github.com/dragonnodejs/app-skeleton)
+- Fork and/or clone the [app-skeleton repository](https://github.com/dragonnodejs/app-skeleton)
 - Run "npm install"
 - Start the application with "npm start"

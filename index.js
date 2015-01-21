@@ -25,10 +25,12 @@ module.exports = function (config, services, callback) {
 
     // Load Node.js and NPM installed libraries with the alias names into the library container
 
+    config.libraries = config.libraries || {};
     var libraries = {};
     for (var alias in config.libraries.nodejs) {
         libraries[alias] = require(config.libraries.nodejs[alias]);
     }
+    config.npm = config.npm || '';
     for (var alias in config.libraries.npm) {
         libraries[alias] = require(config.npm + config.libraries.npm[alias]);
     }
@@ -40,6 +42,7 @@ module.exports = function (config, services, callback) {
             return require(path)(config, libraries, services, callback);
         };
     };
+    config.modules = config.modules || {};
     var modules = [];
     for (var name in config.modules.npm) {
         modules.push(module(config.npm + name, config.modules.npm[name]));
