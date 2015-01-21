@@ -150,7 +150,7 @@ describe('dragonnodejs/dragonnodejs', function () {
         });
     });
 
-    it('should give a npm module an asynchron defined services', function () {
+    it('should give a npm module an asynchronous defined services', function () {
         var config = {
             npm: __dirname + '/modules/',
             libraries: {
@@ -253,7 +253,7 @@ describe('dragonnodejs/dragonnodejs', function () {
         });
     });
 
-    it('should give a directory module an asynchron defined services', function () {
+    it('should give a directory module an asynchronous defined services', function () {
         var config = {
             npm: '',
             libraries: {

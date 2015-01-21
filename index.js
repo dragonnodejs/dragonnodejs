@@ -23,7 +23,7 @@ var async = require('async');
 module.exports = function (config, services, callback) {
     services = services || {};
 
-    // Load Node.js and NPM installed libraries with the alias names to the library container
+    // Load Node.js and NPM installed libraries with the alias names into the library container
 
     var libraries = {};
     for (var alias in config.libraries.nodejs) {
@@ -35,27 +35,26 @@ module.exports = function (config, services, callback) {
 
     // Collect NPM installed and directory modules with the configurations
 
+    var module = function (path, config) {
+        return function (libraries, services, callback) {
+            return require(path)(config, libraries, services, callback);
+        };
+    };
     var modules = [];
     for (var name in config.modules.npm) {
-        modules.push({
-            invoke: require(config.npm + name),
-            config: config.modules.npm[name]
-        });
+        modules.push(module(config.npm + name, config.modules.npm[name]));
     }
     for (var name in config.modules.directory) {
-        modules.push({
-            invoke: require(config.directory + name),
-            config: config.modules.directory[name]
-        });
+        modules.push(module(config.directory + name, config.modules.directory[name]));
     }
 
-    // Load the collected modules asynchron as serie and call the callback if defined
+    // Load the collected modules asynchronous as series and call the callback if defined
 
     var series = [];
     for (var key in modules) {
         series.push(function (module) {
             return function (callback) {
-                if (!module.invoke(module.config, libraries, services, callback)) {
+                if (!module(libraries, services, callback)) {
                     callback();
                 }
             }
