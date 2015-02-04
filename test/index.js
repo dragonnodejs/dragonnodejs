@@ -1,10 +1,21 @@
 "use strict";
+/*global describe:false */
+/*global it:false */
+/*global __dirname:false */
 
 var assert = require('assert');
 
 describe('dragonnodejs/dragonnodejs', function () {
 
     var dragonnodejs = require('../index.js');
+
+    it('should set default values for optional config attributes', function () {
+        var config = {};
+        dragonnodejs(config, {}, function () {
+            var expect = { libraries: {}, npm: '', modules: {}, directory: '' };
+            assert.deepEqual(config, expect, 'config should have default values for optional config attributes');
+        });
+    });
 
     it('should add the "assert" library to the libraries container', function () {
         var config = {
@@ -27,7 +38,7 @@ describe('dragonnodejs/dragonnodejs', function () {
     it('should add the "assert" library with the alias to the libraries container', function () {
         var config = {
             libraries: {
-                nodejs: { alias: 'assert' },
+                nodejs: { alias: 'assert' }
             },
             directory: __dirname + '/modules/',
             modules: {
@@ -57,7 +68,7 @@ describe('dragonnodejs/dragonnodejs', function () {
         };
         var services = {};
         dragonnodejs(config, services, function () {
-            assert.equal(services.library, 'example', 'services.library should be "example"');
+            assert.equal(services.library(), 'example', 'services.library should be "example"');
         });
     });
 
@@ -76,7 +87,7 @@ describe('dragonnodejs/dragonnodejs', function () {
         };
         var services = {};
         dragonnodejs(config, services, function () {
-            assert.equal(services.library, 'example', 'services.library should be "example"');
+            assert.equal(services.library(), 'example', 'services.library should be "example"');
         });
     });
 

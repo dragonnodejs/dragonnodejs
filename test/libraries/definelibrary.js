@@ -1,3 +1,6 @@
 "use strict";
+/*global module:false */
 
-module.exports = 'example';
+module.exports = function () {
+    return 'example';
+};

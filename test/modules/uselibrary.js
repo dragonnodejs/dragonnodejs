@@ -1,4 +1,5 @@
 "use strict";
+/*global module:false */
 
 // Testmodule to use the library with the configured name
 

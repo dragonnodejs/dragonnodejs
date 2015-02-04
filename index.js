@@ -1,6 +1,8 @@
 "use strict";
+/*global module:false */
 
 var async = require('async');
+var _ = require('underscore');
 
 /**
  * Load the libraries and modules with the configuration
@@ -27,13 +29,13 @@ module.exports = function (config, services, callback) {
 
     config.libraries = config.libraries || {};
     var libraries = {};
-    for (var alias in config.libraries.nodejs) {
-        libraries[alias] = require(config.libraries.nodejs[alias]);
-    }
-    config.npm = config.npm || '';
-    for (var alias in config.libraries.npm) {
-        libraries[alias] = require(config.npm + config.libraries.npm[alias]);
-    }
+    _.each(config.libraries.nodejs, function (name, alias) {
+        libraries[alias] = require(name);
+    });
+    var npm = config.npm = config.npm || '';
+    _.each(config.libraries.npm, function (name, alias) {
+        libraries[alias] = require(npm + name);
+    });
 
     // Collect NPM installed and directory modules with the configurations
 
@@ -44,24 +46,25 @@ module.exports = function (config, services, callback) {
     };
     config.modules = config.modules || {};
     var modules = [];
-    for (var name in config.modules.npm) {
-        modules.push(module(config.npm + name, config.modules.npm[name]));
-    }
-    for (var name in config.modules.directory) {
-        modules.push(module(config.directory + name, config.modules.directory[name]));
-    }
+    _.each(config.modules.npm, function (config, name) {
+        modules.push(module(npm + name, config));
+    });
+    var directory = config.directory = config.directory || '';
+    _.each(config.modules.directory, function (config, name) {
+        modules.push(module(directory + name, config));
+    });
 
     // Load the collected modules asynchronous as series and call the callback if defined
 
     var series = [];
-    for (var key in modules) {
+    _.each(modules, function (module) {
         series.push(function (module) {
             return function (callback) {
                 if (!module(libraries, services, callback)) {
                     callback();
                 }
             }
-        }(modules[key]));
-    }
+        }(module));
+    });
     async.series(series, function () { if (callback) { callback(); } });
 };
