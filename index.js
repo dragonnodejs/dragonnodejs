@@ -58,13 +58,11 @@ module.exports = function (config, services, callback) {
 
     var series = [];
     _.each(modules, function (module) {
-        series.push(function (module) {
-            return function (callback) {
-                if (!module(libraries, services, callback)) {
-                    callback();
-                }
+        series.push(function (callback) {
+            if (!module(libraries, services, callback)) {
+                callback();
             }
-        }(module));
+        });
     });
     async.series(series, function () { if (callback) { callback(); } });
 };
