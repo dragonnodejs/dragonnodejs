@@ -8,14 +8,10 @@ var _ = require('underscore');
  * Load the libraries and modules with the configuration
  * @example
     var config = {
-        npm: __dirname + '/node_modules/',
-        libraries: {
-            nodejs: {},
-            npm: {}
-        },
+        libraries: {},
         directory: __dirname + '/modules/',
         modules: {
-            npm: {},
+            npm: [],
             directory: {}
         }
     };
@@ -27,31 +23,25 @@ module.exports = function (config, services, callback) {
 
     // Load Node.js and NPM installed libraries with the alias names into the library container
 
-    config.libraries = config.libraries || {};
     var libraries = {};
-    _.each(config.libraries.nodejs, function (name, alias) {
-        libraries[alias] = require(name);
-    });
-    var npm = config.npm = config.npm || '';
-    _.each(config.libraries.npm, function (name, alias) {
-        libraries[alias] = require(npm + name);
+    _.each(config.libraries, function (library, alias) {
+        libraries[alias] = library;
     });
 
     // Collect NPM installed and directory modules with the configurations
 
-    var module = function (path, config) {
-        return function (libraries, services, callback) {
-            return require(path)(config, libraries, services, callback);
-        };
-    };
     config.modules = config.modules || {};
     var modules = [];
-    _.each(config.modules.npm, function (config, name) {
-        modules.push(module(npm + name, config));
+    _.each(config.modules.npm, function (module) {
+        modules.push(function (libraries, services, callback) {
+            return module[0](module[1], libraries, services, callback);
+        });
     });
     var directory = config.directory = config.directory || '';
     _.each(config.modules.directory, function (config, name) {
-        modules.push(module(directory + name, config));
+        modules.push(function (libraries, services, callback) {
+            return require(directory + name)(config, libraries, services, callback);
+        });
     });
 
     // Load the collected modules asynchronous as series and call the callback if defined
