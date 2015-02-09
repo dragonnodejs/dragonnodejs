@@ -21,13 +21,6 @@ var _ = require('underscore');
 module.exports = function (config, services, callback) {
     services = services || {};
 
-    // Load Node.js and NPM installed libraries with the alias names into the library container
-
-    var libraries = {};
-    _.each(config.libraries, function (library, alias) {
-        libraries[alias] = library;
-    });
-
     // Collect NPM installed and directory modules with the configurations
 
     config.modules = config.modules || {};
@@ -49,7 +42,7 @@ module.exports = function (config, services, callback) {
     var series = [];
     _.each(modules, function (module) {
         series.push(function (callback) {
-            if (!module(libraries, services, callback)) {
+            if (!module(config.libraries, services, callback)) {
                 callback();
             }
         });
