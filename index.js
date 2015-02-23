@@ -1,5 +1,4 @@
 "use strict";
-/*global module:false */
 
 var async = require('async');
 var _ = require('underscore');

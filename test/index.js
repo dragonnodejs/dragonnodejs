@@ -1,7 +1,4 @@
 "use strict";
-/*global describe:false */
-/*global it:false */
-/*global __dirname:false */
 
 var assert = require('assert');
 

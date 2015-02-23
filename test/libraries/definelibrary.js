@@ -1,5 +1,6 @@
 "use strict";
-/*global module:false */
+
+// Testfile to define a library
 
 module.exports = function () {
     return 'example';
