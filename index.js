@@ -20,16 +20,19 @@ var _ = require('underscore');
 module.exports = function (config, services, callback) {
     services = services || {};
 
-    // Collect NPM installed and directory modules with the configurations
-
-    config.modules = config.modules || {};
     var modules = [];
+
+    // Collect NPM installed modules with the configurations
+
     _.each(config.modules.npm, function (module) {
         modules.push(function (libraries, services, callback) {
             return module[0](module[1], libraries, services, callback);
         });
     });
-    var directory = config.directory = config.directory || '';
+
+    // Collect directory modules with the configurations
+
+    var directory = config.directory;
     _.each(config.modules.directory, function (config, name) {
         modules.push(function (libraries, services, callback) {
             return require(directory + name)(config, libraries, services, callback);

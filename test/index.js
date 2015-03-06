@@ -6,14 +6,6 @@ describe('dragonnodejs/dragonnodejs', function () {
 
     var dragonnodejs = require('../index.js');
 
-    it('should set default values for optional config attributes', function () {
-        var config = {};
-        dragonnodejs(config, {}, function () {
-            var expect = { modules: {}, directory: '' };
-            assert.deepEqual(config, expect, 'config should have default values for optional config attributes');
-        });
-    });
-
     it('should add the "assert" library to the libraries container', function () {
         var config = {
             libraries: {
