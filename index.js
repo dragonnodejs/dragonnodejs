@@ -41,13 +41,13 @@ module.exports = function (config, services, callback) {
 
     // Load the collected modules asynchronous as series and call the callback if defined
 
-    var series = [];
-    _.each(modules, function (module) {
-        series.push(function (callback) {
+    async.eachSeries(
+        modules,
+        function (module, callback) {
             if (!module(config.libraries, services, callback)) {
                 callback();
             }
-        });
-    });
-    async.series(series, function () { if (callback) { callback(); } });
+        },
+        function () { if (callback) { callback(); } }
+    );
 };
