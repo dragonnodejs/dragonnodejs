@@ -9,11 +9,9 @@ Framework to develop modular and testable Node.js applications
 - Group modules to bundles and share them with other developers
 - Support asynchronous modules and bundles
 
-# Installation
-- Fork and/or clone the [app-skeleton repository](https://github.com/dragonnodejs/app-skeleton)
-- Run "npm install"
-- Start the application with "npm start"
-
-# Getting started
+## Getting started
 [Understand the concept of DragonNode.js with the first steps how to build an application]
  (https://github.com/dragonnodejs/getting-started)
+
+## Create new App
+See: [dragonnodejs/app-skeleton](https://github.com/dragonnodejs/app-skeleton.git)
