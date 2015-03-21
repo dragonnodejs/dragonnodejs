@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // Testmodule to define service
 

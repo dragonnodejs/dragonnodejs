@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // Testfile to define a library
 
