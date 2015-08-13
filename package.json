@@ -2,7 +2,8 @@
     "name": "dragonnodejs",
     "description": "Framework to develop modular and testable Node.js applications",
     "version": "4.0.5",
-    "author": "Christoph Herrmann <developer@dragonprojects.de>",
+    "homepage": "http://github.com/dragonnodejs/dragonnodejs",
+    "license": "MIT",
     "readmeFilename": "README.md",
     "scripts": {
         "test": "mocha -R spec"
