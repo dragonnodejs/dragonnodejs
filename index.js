@@ -3,7 +3,7 @@
 /**
  * Run the modules with the libraries and the services
  * @example
-    var config = {
+    let config = {
         directory: __dirname + '/',
         libraries: {
             library: require('library')
