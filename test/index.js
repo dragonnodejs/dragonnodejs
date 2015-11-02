@@ -1,223 +1,95 @@
 'use strict';
 
-var assert = require('assert');
+let assert = require('assert');
 
-describe('dragonnodejs/dragonnodejs', function () {
+describe('dragonnodejs', () => {
+    let dragonnodejs = require('../index.js');
 
-    var dragonnodejs = require('../index.js');
-
-    it('should add the "assert" library to the libraries container', function () {
-        var config = {
-            libraries: {
-                assert: require('assert')
-            },
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: {
-                    uselibrary: { name: 'assert' }
-                }
-            }
+    it('should use a module already required', () => {
+        let config = {
+            directory: __dirname + '/',
+            modules: [
+                ['modules/defineservice'],
+                [require(__dirname + '/modules/loadmodule')]
+            ]
         };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(typeof services.library, 'function', 'services.library should be a function');
-        });
+        let services = {};
+        dragonnodejs(config, services);
+        assert.equal(services.module, 'module', 'services.module should be "module"');
     });
 
-    it('should add the "assert" library with the alias to the libraries container', function () {
-        var config = {
-            libraries: {
-                alias: require('assert')
-            },
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: {
-                    uselibrary: { name: 'alias' }
-                }
-            }
+    it('should load a module with directory config and relative path', () => {
+        let config = {
+            directory: __dirname + '/',
+            modules: [
+                ['modules/loadmodule']
+            ]
         };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(typeof services.library, 'function', 'services.library should be a function');
-        });
+        let services = {};
+        dragonnodejs(config, services);
+        assert.equal(services.module, 'module', 'services.module should be "module"');
     });
 
-    it('should add the npm installed library to the libraries container', function () {
-        var config = {
-            libraries: {
-                definelibrary: require(__dirname + '/libraries/definelibrary')
-            },
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: {
-                    uselibrary: { name: 'definelibrary' }
-                }
-            }
+    it('should allow a module to define a service', () => {
+        let config = {
+            directory: __dirname + '/',
+            modules: [
+                ['modules/defineservice']
+            ]
         };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.library(), 'example', 'services.library should be "example"');
-        });
+        let services = {};
+        dragonnodejs(config, services);
+        assert.equal(services.service, 'service', 'services.service should be "service"');
     });
 
-    it('should add the npm installed library with the alias to the libraries container', function () {
-        var config = {
-            libraries: {
-                alias: require(__dirname + '/libraries/definelibrary')
-            },
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: {
-                    uselibrary: { name: 'alias' }
-                }
-            }
+    it('should allow a module to use the config', () => {
+        let config = {
+            directory: __dirname + '/',
+            modules: [
+                ['modules/useconfig', 'config']
+            ]
         };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.library(), 'example', 'services.library should be "example"');
-        });
+        let services = {};
+        dragonnodejs(config, services);
+        assert.equal(services.config, 'config', 'services.config should be "config"');
     });
 
-    it('should allow a npm module to define service', function () {
-        var config = {
-            modules: {
-                npm: [[require(__dirname + '/modules/defineservice'), {}]]
-            }
+    it('should allow a module to use the libraries', () => {
+        let config = {
+            directory: __dirname + '/',
+            libraries: 'libraries',
+            modules: [
+                ['modules/uselibraries']
+            ]
         };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.example, 'example', 'module should defined "example" as service "example"');
-        });
+        let services = {};
+        dragonnodejs(config, services);
+        assert.equal(services.libraries, 'libraries', 'services.libraries should be "libraries"');
     });
 
-    it('should give a npm module the defined services', function () {
-        var config = {
-            npm: __dirname + '/modules/',
-            modules: {
-                npm: [
-                    [require(__dirname + '/modules/defineservice'), {}],
-                    [require(__dirname + '/modules/useservice'), {}]
-                ]
-            }
+    it('should allow a module to use the services', () => {
+        let config = {
+            directory: __dirname + '/',
+            modules: [
+                ['modules/useservices']
+            ]
         };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.service, 'example', 'module should defined "example" as service "service"');
-        });
+        let services = { service: 'service' };
+        dragonnodejs(config, services);
+        assert.equal(services.services.service, 'service', 'services.services.service should be "service"');
     });
 
-    it('should give a npm module the configuration', function () {
-        var config = {
-            npm: __dirname + '/modules/',
-            modules: {
-                npm: [[require(__dirname + '/modules/useconfig'), { example: 'example' }]]
-            }
+    it('should allow a define more as one module and use the different configs', () => {
+        let config = {
+            directory: __dirname + '/',
+            modules: [
+                ['modules/useconfigs', { key: 'configA', value: 'A' }],
+                ['modules/useconfigs', { key: 'configB', value: 'B' }]
+            ]
         };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.config, 'example', 'module should defined "example" as service "config"');
-        });
-    });
-
-    it('should give a npm module an asynchronous defined services', function () {
-        var config = {
-            npm: __dirname + '/modules/',
-            modules: {
-                npm: [
-                    [require(__dirname + '/modules/defineserviceasync'), {}],
-                    [require(__dirname + '/modules/useservice'), {}]
-                ]
-            }
-        };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.service, 'example', 'module should defined "example" as service "service"');
-        });
-    });
-
-    it('should allow to invoke services to npm modules', function () {
-        var config = {
-            npm: __dirname + '/modules/',
-            modules: {
-                npm: [[require(__dirname + '/modules/useservice'), {}]]
-            }
-        };
-        var services = { example: 'invoked' };
-        dragonnodejs(config, services, function () {
-            assert.equal(services.service, 'invoked', 'module should defined "invoke" as service "service"');
-        });
-    });
-
-    it('should allow a directory module to define service', function () {
-        var config = {
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: { defineservice: {} }
-            }
-        };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.example, 'example', 'module should defined "example" as service "example"');
-        });
-    });
-
-    it('should give a directory module the defined services', function () {
-        var config = {
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: {
-                    defineservice: {},
-                    useservice: {}
-                }
-            }
-        };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.service, 'example', 'module should defined "example" as service "service"');
-        });
-    });
-
-    it('should give a directory module the configuration', function () {
-        var config = {
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: { useconfig: { example: 'example' } }
-            }
-        };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.config, 'example', 'module should defined "example" as service "config"');
-        });
-    });
-
-    it('should give a directory module an asynchronous defined services', function () {
-        var config = {
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: {
-                    defineserviceasync: {},
-                    useservice: {}
-                }
-            }
-        };
-        var services = {};
-        dragonnodejs(config, services, function () {
-            assert.equal(services.service, 'example', 'module should defined "example" as service "service"');
-        });
-    });
-
-    it('should allow to invoke services to directory modules', function () {
-        var config = {
-            directory: __dirname + '/modules/',
-            modules: {
-                directory: {
-                    useservice: {}
-                }
-            }
-        };
-        var services = { example: 'invoked' };
-        dragonnodejs(config, services, function () {
-            assert.equal(services.service, 'invoked', 'module should defined "invoke" as service "service"');
-        });
+        let services = {};
+        dragonnodejs(config, services);
+        assert.equal(services.configA, 'A', 'services.configA should be "A"');
+        assert.equal(services.configB, 'B', 'services.configB should be "B"');
     });
 });

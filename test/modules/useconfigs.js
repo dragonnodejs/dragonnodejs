@@ -3,5 +3,5 @@
 // Module to use the config
 
 module.exports = (config, libraries, services) => {
-    services.config = config;
+    services[config.key] = config.value;
 };

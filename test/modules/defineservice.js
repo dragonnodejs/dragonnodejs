@@ -1,7 +1,7 @@
 'use strict';
 
-// Testmodule to define service
+// Module to define a service
 
-module.exports = function (config, libraries, services) {
-    services.example = 'example';
+module.exports = (config, libraries, services) => {
+    services.service = 'service';
 };

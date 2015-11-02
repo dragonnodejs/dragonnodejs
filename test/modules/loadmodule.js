@@ -1,7 +1,7 @@
 'use strict';
 
-// Module to use the config
+// Module to check if it was loaded
 
 module.exports = (config, libraries, services) => {
-    services.config = config;
+    services.module = 'module';
 };

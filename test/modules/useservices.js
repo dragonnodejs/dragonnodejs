@@ -1,7 +1,7 @@
 'use strict';
 
-// Module to use the config
+// Module to use the services
 
 module.exports = (config, libraries, services) => {
-    services.config = config;
+    services.services = services;
 };
