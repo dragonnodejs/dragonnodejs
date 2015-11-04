@@ -4,10 +4,10 @@
  * Run the modules with the libraries and the services
  * @example
     let config = {
-        directory: __dirname + '/',
         libraries: {
             library: require('library')
         },
+        directory: __dirname + '/',
         modules: [
             [require('bundle'), [
                 ['modules/module', {}]
