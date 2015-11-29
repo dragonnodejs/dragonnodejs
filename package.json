@@ -1,15 +1,16 @@
 {
   "name": "dragonnodejs",
   "description": "Framework to develop modular and testable Node.js applications",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "homepage": "http://github.com/dragonnodejs/dragonnodejs",
   "license": "MIT",
   "readmeFilename": "README.md",
+  "main": "lib",
   "scripts": {
     "test": "mocha -R spec"
   },
   "devDependencies": {
-    "mocha": "^2.3.3"
+    "mocha": "^2.3.4"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,7 @@
 [![Travis CI](https://travis-ci.org/dragonnodejs/dragonnodejs.svg?branch=master "Travis CI")]
  (https://travis-ci.org/dragonnodejs/dragonnodejs)
+[![Dependency Status](https://david-dm.org/dragonnodejs/dragonnodejs.svg)](https://david-dm.org/dragonnodejs/dragonnodejs)
+[![devDependency Status](https://david-dm.org/dragonnodejs/dragonnodejs/dev-status.svg)](https://david-dm.org/dragonnodejs/dragonnodejs#info=devDependencies)
 
 # DragonNode.js
 Framework to develop modular and testable Node.js applications
@@ -16,4 +18,4 @@ Framework to develop modular and testable Node.js applications
 See: [dragonnodejs/app-skeleton](https://github.com/dragonnodejs/app-skeleton.git)
 
 ## Create new Bundle
-See: [dragonnodejs/app-skeleton](https://github.com/dragonnodejs/bundle-skeleton.git)
+See: [dragonnodejs/bundle-skeleton](https://github.com/dragonnodejs/bundle-skeleton.git)
